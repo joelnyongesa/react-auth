@@ -1,17 +1,28 @@
 import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import { useToken } from '../auth/useToken'
 
 function SignUpPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [token, setToken] = useToken();
 
     const history = useHistory();
 
     const onSignUpClick = async()=>{
-        alert("Log In functionality not implemented")
+        const response = await axios.post('/api/signup', {
+            email: email,
+            password: password,
+        });
+
+        const { token } = response.data;
+        setToken(token);
+        history.push('/');
     }
 
   return (
