@@ -12,7 +12,7 @@ export const updateUserInfoRoute = {
 
         // Takes a subset of an object's body, to make sure users do not include arbitrary data in our database
 
-        const updates = ({
+        const updates = (({
             favoriteFood,
             hairColor,
             bio,
@@ -20,7 +20,7 @@ export const updateUserInfoRoute = {
             favoriteFood,
             hairColor,
             bio,
-        })(req.body);
+        }))(req.body);
 
         if (!authorization){
             return res.status(401).json({ message: "No authorization headers set"});
