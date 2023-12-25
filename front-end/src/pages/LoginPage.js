@@ -1,16 +1,27 @@
 import React from 'react'
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import axios from 'axios'
+import { useToken } from '../auth/useToken';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [token, setToken] = useToken();
 
     const history = useHistory();
 
     const onLogInClick = async()=>{
-        alert("Log In functionality not implemented")
+        const response = await axios.post('/api/login', {
+            email: email,
+            password: password,
+        });
+
+        const { token } = response.data;
+        setToken(token);
+        history.push('/')
     }
 
   return (
